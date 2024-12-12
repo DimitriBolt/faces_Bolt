@@ -1,10 +1,11 @@
-
-[un_ibl,ia,ic] = unique(ibl);
-icn = accumarray(ic, 1);
-icn(:,2)=iblu;
-icnsort = sortrows(icn,1,'descend');
-listpersons = icnsort(1:100,2);
-person = ibl(listpersons);
-persons = cellstr(person);
-personsold = {'Angelina_Jolie', 'Eduardo_Duhalde', 'Amelie_Mauresmo'};
+ibl = imds0.Labels; %все метки из депозитория 13233
+%iblu = unique(ibl);
+[un_ibl,ia,ic] = unique(ibl); % уникальные метки, уникальный номер уникальной метки, 
+icn = accumarray(ic, 1);%количество уникальных значений каждой метки (под номерами)
+icn(:,2)=iblu;%добавил номера, чтобы их искать в ibl
+icnsort = sortrows(icn,1,'descend');%сортировка по убыванию по первому столбцу
+listpersons = icnsort(1:100,2);%выбрали первые 100
+person = ibl(listpersons);%вставили имена
+persons = cellstr(person);%изменили формат
+personsold = {'Angelina_Jolie', 'Eduardo_Duhalde', 'Amelie_Mauresmo'};%старый список
 [~, ~, indices] = unique(persons);
