@@ -1,4 +1,27 @@
-clc
+clc;
+clear;
+targetSize=[128,128];
+location = fullfile('lfw');
+svd_cache = fullfile('cache','svd.mat');
+mkdir(fullfile('cache'));
+
+disp('Creating image datastore...');
+imds = imageDatastore(location,'IncludeSubfolders',true,'LabelSource','foldernames',...
+                      'ReadFcn', @(filename)imresize(im2gray(imread(filename)),targetSize));
+montage(preview(imds));
+disp('Reading all images...');
+A = readall(imds);
+
+% Play faces
+if true
+    for j=1:length(A)
+        imshow(A{j}),title(imds.Labels(j),'Interpreter','none');
+        colormap gray;
+        drawnow;
+        pause(1);
+    end
+end
+
 ibl = imds0.Labels; %все метки из депозитория 13233
 %iblu = unique(ibl);
 [un_ibl,ia,ic] = unique(ibl); % уникальные метки, уникальный номер уникальной метки, 
