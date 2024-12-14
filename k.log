@@ -1,0 +1,7 @@
+% k -  Number of features to consider
+k=16; Elapsed time is 179.438560 seconds. Percentage of correctly labeled images: 38.3183%
+k=32; Elapsed time is 96.574704 seconds.Percentage of correctly labeled images: 80.7998%
+k=64; Elapsed time is 58.801945 seconds. Percentage of correctly labeled images: 98.5483%
+k=128; Elapsed time is 16.591152 seconds.Percentage of correctly labeled images: 99.9726%
+k=256; Elapsed time is 14.161983 seconds.Percentage of correctly labeled images: 100%
+
