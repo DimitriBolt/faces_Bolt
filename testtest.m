@@ -1,6 +1,6 @@
 clc;
 clear;
-targetSize=[8,8];
+targetSize=[128,128];
 location = fullfile('lfw');
 svd_cache = fullfile('cache','svd.mat');
 % mkdir(fullfile('cache'));
@@ -10,10 +10,10 @@ imds0 = imageDatastore(location,'IncludeSubfolders',true,'LabelSource','folderna
 % montage(preview(imds));
 disp('Reading all images...');
 
-k=8;                    % Number of features to consider
-persons_amount = 30;    % Number of persons to consider
+k=64;                    % Number of features to consider
+persons_amount = 100;    % Number of persons to consider
 
-labels = imds0.Labels;                            % все метки из депозитория 13233
+labels = imds0.Labels;                            %     13233
 [counts, uniqueLabels] = histcounts(labels);     % Count the occurrences of each unique value in 'labels'
 [~, sortedIndices] = sort(counts, 'descend');    % Sort the counts in descending order and get the indices
 topLabels = uniqueLabels(sortedIndices(1:persons_amount));  % Select the 100 most frequent values

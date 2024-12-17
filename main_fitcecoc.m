@@ -1,3 +1,5 @@
+clc;
+clearvars -except A persons labels;
 %----------------------------------------------------------------
 % File:     main_fitcecoc.m
 %----------------------------------------------------------------
@@ -7,31 +9,34 @@
 % Copying:  (C) Marek Rychlik, 2020. All rights reserved.
 % 
 %----------------------------------------------------------------
-% Classification into several classes
+% Classification into several classes 
 % This script trains a facial recognition model. The model
 % is saved to a .MAT file, along with necessary data to perform facial
 % recognition:
 
 targetSize = [128,128];
-k=30;                                   % Number of features to consider
-location = fullfile('lfw');
+k=64;                                   % Number of features to consider
+% location = fullfile('lfw');
 
-disp('Creating image datastore...');
-imds0 = imageDatastore(location,'IncludeSubfolders',true,'LabelSource','foldernames',...
-                      'ReadFcn', @(filename)imresize(im2gray(imread(filename)),targetSize));
+% disp('Creating image datastore...');
+% imds0 = imageDatastore(location,'IncludeSubfolders',true,'LabelSource','foldernames','ReadFcn', @(filename)imresize(im2gray(imread(filename)),targetSize));
 
-disp('Creating subset of several persons...');
-persons = {'Angelina_Jolie', 'Eduardo_Duhalde', 'Amelie_Mauresmo'}
+% disp('Creating subset of several persons...');
+% persons = {'Angelina_Jolie', 'Eduardo_Duhalde', 'Amelie_Mauresmo'}
+% load('persons100.mat')
 
-[lia, locb] = ismember(imds0.Labels, persons);
-imds = subset(imds0, lia);
+% [lia, locb] = ismember(imds0.Labels, persons);
+% imds = subset(imds0, lia);
 
 t=tiledlayout('flow');
 nexttile(t);
-montage(imds);
+% montage(imds);
 
-disp('Reading all images');
-A = readall(imds);
+% disp('Reading all images');
+% A = readall(imds);
+% labels = imds.Labels;
+% save ("A100.mat","A", "labels")
+% load("A100.mat")
 
 B = cat(3,A{:});
 D = prod(targetSize);
@@ -75,7 +80,7 @@ U = U(:,1:k);                           % Keep K eigenfaces
 
 % Find feature vectors of all images
 X = W';
-Y = categorical(imds.Labels, persons);
+Y = categorical(labels, persons);
 
 % Create colormap
 cm=[1,0,0;
@@ -116,7 +121,7 @@ zlabel('x6');
 % ROC = receiver operating characteristic
 % See https://en.wikipedia.org/wiki/Receiver_operating_characteristic
 disp('Plotting ROC metrics...');
-rm = rocmetrics(imds.Labels, Score, persons);
+rm = rocmetrics(labels, Score, persons);
 nexttile(t);
 plot(rm);
 
