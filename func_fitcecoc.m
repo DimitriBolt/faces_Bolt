@@ -74,7 +74,12 @@ function [Accuracy, rm, ttoc] = func_fitcecoc(k, targetSize, A, labels, persons)
     
     % Mdl = fitcecoc(X, Y,'Verbose', 2,'Learners','svm',...
     %                'Options',options);
-    Mdl = fitcecoc(X, Y,'Verbose', 0,'Learners','svm', 'Options',options);
+    %Mdl = fitcecoc(X, Y,'Verbose', 0,'Learners','svm', 'Options',options);
+    tTree = templateTree('surrogate','on');
+    tEnsemble = templateEnsemble('GentleBoost',100,tTree);
+    Mdl = fitcecoc(X,Y,'Coding','onevsall','Learners',tEnsemble,...
+               'Prior','uniform','NumBins',50,'Options',options,...
+               'Verbose',2);
     ttoc = toc;
     
     % Generate a plot in feature space using top two features

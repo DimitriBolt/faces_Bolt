@@ -3,6 +3,7 @@ load persons100.mat
 targetSize_OneDimention = 128;
 targetSize = [targetSize_OneDimention,targetSize_OneDimention];
 fiches_numbers = [8,16,32,64,128,256,512,1024,2048];
+%fiches_numbers = [32,128,256];
 Histortoc=[];
 HistorAccuracy=[];
 HistorSize=[];
